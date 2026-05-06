@@ -31,38 +31,42 @@ class Distance:
         return Distance(self.km * other)
 
     def __truediv__(self, other: int | float) -> Distance:
-        if not int == 0:
+        try:
+            return Distance(self.value / other)
+        except ZeroDivisionError:
+            raise ZeroDivisionError("Нельзя делить Number на ноль")
+        if other != 0:
             return Distance(round(self.km / other, 2))
 
-    def __lt__(self, other: Distance | int | float) -> None:
+    def __lt__(self, other: Distance | int | float) -> bool:
         if isinstance(other, Distance):
             return self.km < other.km
 
         if isinstance(other, (int, float)):
             return self.km < other
 
-    def __gt__(self, other: Distance | int | float) -> None:
+    def __gt__(self, other: Distance | int | float) -> bool:
         if isinstance(other, Distance):
             return self.km > other.km
 
         if isinstance(other, (int, float)):
             return self.km > other
 
-    def __eq__(self, other: Distance | int | float) -> None:
+    def __eq__(self, other: Distance | int | float) -> bool:
         if isinstance(other, Distance):
             return self.km == other.km
 
         if isinstance(other, (int, float)):
             return self.km == other
 
-    def __le__(self, other: Distance | int | float) -> None:
+    def __le__(self, other: Distance | int | float) -> bool:
         if isinstance(other, Distance):
             return self.km <= other.km
 
         if isinstance(other, (int, float)):
             return self.km <= other
 
-    def __ge__(self, other: Distance | int | float) -> None:
+    def __ge__(self, other: Distance | int | float) -> bool:
         if isinstance(other, Distance):
             return self.km >= other.km
 
