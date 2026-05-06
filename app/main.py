@@ -31,12 +31,13 @@ class Distance:
         return Distance(self.km * other)
 
     def __truediv__(self, other: int | float) -> Distance:
-        try:
-            return Distance(self.value / other)
-        except ZeroDivisionError:
-            raise ZeroDivisionError("Нельзя делить Number на ноль")
-        if other != 0:
-            return Distance(round(self.km / other, 2))
+        if not isinstance(other, (int, float)):
+            return NotImplemented
+
+        if other == 0:
+            raise ZeroDivisionError("You cannot divide Distance by zero")
+
+        return Distance(round(self.km / other, 2))
 
     def __lt__(self, other: Distance | int | float) -> bool:
         if isinstance(other, Distance):
